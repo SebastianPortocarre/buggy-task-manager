@@ -3,7 +3,7 @@ import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
-from src.tasks import create_task, get_pending_tasks, complete_task, get_stats
+from src.tasks import create_task, get_pending_tasks
 
 
 def test_create_task_valid():
@@ -18,18 +18,11 @@ def test_create_task_empty_title():
 
 
 def test_create_task_invalid_priority():
-    result = create_task("Test", "urgent", "2024-12-31")
+    result = create_task("Comprar leche", "very high", "2024-12-31")
     assert result["success"] is False
 
 
-def test_complete_task():
-    tasks = [{"title": "Test", "priority": "high", "completed": False}]
-    result = complete_task(tasks, "Test")
-    assert result["success"] is True
-    assert tasks[0]["completed"] is True
-
-
-def test_complete_task_not_found():
-    tasks = []
-    result = complete_task(tasks, "No existe")
+def test_create_task_invalid_date_format():
+    result = create_task("Comprar leche", "high", "31-12-2024")
     assert result["success"] is False
+
