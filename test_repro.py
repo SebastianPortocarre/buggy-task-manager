@@ -1,13 +1,12 @@
 import pytest
-from src.tasks import get_pending_tasks
 
-def test_get_pending_tasks_order():
-    tasks = [
-        {"title": "A", "priority": "low", "completed": False},
-        {"title": "B", "priority": "high", "completed": False},
-    ]
-    result = get_pending_tasks(tasks)
-    assert result[0]["title"] == "B", "Tasks should be sorted with 'high' priority first"
+# Suponiendo que existe una función get_stats en algún módulo Python
+from src.tasks import get_stats  # Esta importación es hipotética
+
+def test_get_stats_no_tasks():
+    """get_stats debería manejar el caso de una lista vacía"""
+    expected = {"total": 0, "completed": 0, "pending": 0, "completion_rate": 0.0}
+    assert get_stats([]) == expected, "Debería resultar en estadísticas vacías"
 
 if __name__ == "__main__":
-    pytest.main()
+    pytest.main(["-v", "--tb=short", "test_repro.py"])
